@@ -1,0 +1,27 @@
+ITP4887_AY2122_GroupProject
+
+package used
+```{r}
+require(jsonlite)
+
+```
+
+Data Pre-processing
+```{r}
+#Convert JSON to the dataframe
+#Data1 <- fromJSON(file.choose())
+Data1 <- data.frame(Data1)
+Data1
+#transform the day format
+Data2 <- format(Data1$date,format = "%d %m %Y")
+Data2
+#Fill N/A value
+Data1[is.na(Data1)] <- 0
+Data1
+#Aggregate the facilities
+
+#Extract type 
+
+#output to csv
+
+```
