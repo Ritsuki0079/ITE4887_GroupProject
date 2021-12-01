@@ -9,7 +9,7 @@ require(jsonlite)
 Data Pre-processing
 ```{r}
 #Convert JSON to the dataframe
-#Data1 <- fromJSON(file.choose())
+Data1 <- fromJSON(file.choose())
 Data1 <- data.frame(Data1)
 Data1
 #transform the day format
@@ -23,5 +23,5 @@ Data1
 #Extract type 
 
 #output to csv
-
+#write.csv(Data1, "UKHousing.csv")
 ```
