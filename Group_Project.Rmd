@@ -3,7 +3,8 @@ ITP4887_AY2122_GroupProject
 package used
 ```{r}
 require(jsonlite)
-
+require(lubridate)
+require(stringr)
 ```
 
 Data Pre-processing
@@ -12,16 +13,37 @@ Data Pre-processing
 Data1 <- fromJSON(file.choose())
 Data1 <- data.frame(Data1)
 Data1
+```
+
+```{r}
 #transform the day format
-Data2 <- format(Data1$date,format = "%d %m %Y")
-Data2
-#Fill N/A value
-Data1[is.na(Data1)] <- 0
+Data1$date <- dmy(Data1$date)
 Data1
+```
+
+```{r}
+#Fill N/A value
+Data1[c("price","types","address","latitude"
+,"longitude","beds","baths","bath","reception","receptions","bed")][is.na(Data1[c("price","types","address","latitude"
+,"longitude","beds","baths","bath","reception","receptions","bed")])] <- 0
+Data1
+```
+
+```{r}
 #Aggregate the facilities
+Data1["TotalBeds"] <- as.numeric(Data1$beds)+as.numeric(Data1$bed)
+Data1["TotalBaths"] <- as.numeric(Data1$bath)+as.numeric(Data1$baths)
+Data1["TotalReceptions"] <- as.numeric(Data1$reception)+as.numeric(Data1$receptions)
+Data1
+```
 
+```{r}
 #Extract type 
+FlatType <- str_extract(Data1, regex("flat","detached house","terraced house","semi-detached house","end terrace house","property","maisonette","Studio"))
+FlatType3
+```
 
+```{r}
 #output to csv
 #write.csv(Data1, "UKHousing.csv")
 ```
