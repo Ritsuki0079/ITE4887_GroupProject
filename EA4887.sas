@@ -1,3 +1,12 @@
+PROC SQL;
+	create table price as
+	select DISTINCT FlatType, avg(price) as avgprice from Housing
+	Group By FlatType;
+
+	select * from price;	
+
+run;
+
 /*Q1 Generate 5 to 10 records*/
 proc print data=data.EA4887(firstobs=5 obs=10);
 run;
@@ -30,6 +39,13 @@ title;
 proc sgplot data=Housing; 
 title "Relationship between the number of bedrooms and the number of bathrooms";
 
- reg X=TotalBaths Y=TotalBeds ;  
+ reg X=TotalBaths Y=TotalBeds / CLM CLI;  
+
+run;
+
+proc sgplot data=price; 
+title "Relationship between the average price of a different property";
+
+ reg X=FlatType Y=avgprice / CLM CLI;  
 
 run;
