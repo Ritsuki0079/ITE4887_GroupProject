@@ -19,7 +19,7 @@ PROC sgpie data=Housing;
 	title "Value distribution of the number of Reception between the semi-detached house and terraced house";
 		pie FlatType / response=TotalReceptions;
 run;
-/* The above chart shows the  */
+
 /*Q5 The property that contains the second most turnover*/
 Proc sgplot data=Housing;
 	title "Property that contains the second most turnover";
