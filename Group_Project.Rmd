@@ -64,7 +64,7 @@ Data1$FlatType[grep("mobile/park",Data1$types)] = "mobile/park"
 Data1$FlatType[grep("houseboat",Data1$types)] = "houseboat" 
 Data1$FlatType[grep("shared accommodation",Data1$types)] = "shared accommodation"
 Data1$FlatType[grep("Land",Data1$types)] = "land"
-Data1$FlatType[grep("Romm",Data1$types)] = "room"
+Data1$FlatType[grep("Room",Data1$types)] = "room"
 Data1
 ```
 
