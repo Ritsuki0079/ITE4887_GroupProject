@@ -9,20 +9,20 @@ require(stringr)
 
 Data Pre-processing
 ```{r}
-#Convert JSON to the dataframe
+#Q1 Convert JSON to the dataframe
 Data1 <- fromJSON(file.choose())
 Data1 <- data.frame(Data1)
 Data1
 ```
 
 ```{r}
-#transform the day format
+#Q2 transform the day format
 Data1$date <- dmy(Data1$date)
 Data1
 ```
 
 ```{r}
-#Fill N/A value
+#Q3 Fill N/A value
 Data1[c("price","types","address","latitude"
 ,"longitude","beds","baths","bath","reception","receptions","bed")][is.na(Data1[c("price","types","address","latitude"
 ,"longitude","beds","baths","bath","reception","receptions","bed")])] <- 0
@@ -30,7 +30,7 @@ Data1
 ```
 
 ```{r}
-#Aggregate the facilities
+#Q4 Aggregate the facilities
 Data1["TotalBeds"] <- as.numeric(Data1$beds)+as.numeric(Data1$bed)
 Data1["TotalBaths"] <- as.numeric(Data1$bath)+as.numeric(Data1$baths)
 Data1["TotalReceptions"] <- as.numeric(Data1$reception)+as.numeric(Data1$receptions)
@@ -38,12 +38,26 @@ Data1
 ```
 
 ```{r}
-#Extract type 
-FlatType <- str_extract(Data1, regex("flat","detached house","terraced house","semi-detached house","end terrace house","property","maisonette","Studio"))
-FlatType3
+#Q5 Extract type 
+Data1$FlatType = Data1$types
+Data1$FlatType[grep("flat",Data1$types)] = "flat"
+Data1$FlatType[grep("detached house",Data1$types)] = "detached house"
+Data1$FlatType[grep("Detached house",Data1$types)] = "detached house"
+Data1$FlatType[grep("terraced house",Data1$types)] = "terraced house"
+Data1$FlatType[grep("semi-detached house",Data1$types)] = "semi-detached house"
+Data1$FlatType[grep("end terrace house",Data1$types)] = "end terrace house"
+Data1$FlatType[grep("property",Data1$types)] = "property"
+Data1$FlatType[grep("Property",Data1$types)] = "property"
+Data1$FlatType[grep("maisonette",Data1$types)] = "maisonette"
+Data1$FlatType[grep("Studio",Data1$types)] = "Studio" 
+Data1$FlatType[grep("cottage",Data1$types)] = "cottage"  
+Data1$FlatType[grep("bed mews house",Data1$types)] = "bed mews house" 
+Data1$FlatType[grep("town house",Data1$types)] = "town house" 
+Data1$FlatType[grep("bungalow",Data1$types)] = "bungalow" 
+Data1
 ```
 
 ```{r}
-#output to csv
-#write.csv(Data1, "UKHousing.csv")
+#Q6 output to csv
+write.csv(Data1, "Project_Housing.csv")
 ```
