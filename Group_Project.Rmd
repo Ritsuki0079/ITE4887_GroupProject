@@ -41,6 +41,7 @@ Data1
 #Q5 Extract type 
 Data1$FlatType = Data1$types
 Data1$FlatType[grep("flat",Data1$types)] = "flat"
+Data1$FlatType[grep("Flat",Data1$types)] = "flat"
 Data1$FlatType[grep("detached house",Data1$types)] = "detached house"
 Data1$FlatType[grep("Detached house",Data1$types)] = "detached house"
 Data1$FlatType[grep("terraced house",Data1$types)] = "terraced house"
@@ -50,16 +51,20 @@ Data1$FlatType[grep("end terrace house",Data1$types)] = "end terrace house"
 Data1$FlatType[grep("property",Data1$types)] = "property"
 Data1$FlatType[grep("Property",Data1$types)] = "property"
 Data1$FlatType[grep("maisonette",Data1$types)] = "maisonette"
+Data1$FlatType[grep("Maisonette",Data1$types)] = "maisonette"
 Data1$FlatType[grep("Studio",Data1$types)] = "Studio" 
 Data1$FlatType[grep("cottage",Data1$types)] = "cottage"  
 Data1$FlatType[grep("bed mews house",Data1$types)] = "bed mews house" 
 Data1$FlatType[grep("town house",Data1$types)] = "town house" 
+Data1$FlatType[grep("Town house",Data1$types)] = "town house"
 Data1$FlatType[grep("bungalow",Data1$types)] = "bungalow" 
 Data1$FlatType[grep("penthouse",Data1$types)] = "penthouse" 
 Data1$FlatType[grep("Parking/garage",Data1$types)] = "Parking/garage" 
 Data1$FlatType[grep("mobile/park",Data1$types)] = "mobile/park" 
 Data1$FlatType[grep("houseboat",Data1$types)] = "houseboat" 
 Data1$FlatType[grep("shared accommodation",Data1$types)] = "shared accommodation"
+Data1$FlatType[grep("Land",Data1$types)] = "land"
+Data1$FlatType[grep("Romm",Data1$types)] = "room"
 Data1
 ```
 
