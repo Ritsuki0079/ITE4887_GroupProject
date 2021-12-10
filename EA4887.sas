@@ -27,3 +27,9 @@ Proc sgplot data=Housing;
 run;
 title;
 /*Q6 The relationship between the number of bedrooms, the number of bathrooms and the average price of a different property*/
+proc sgplot data=Housing; 
+title "Relationship between the number of bedrooms and the number of bathrooms";
+
+ reg X=TotalBaths Y=TotalBeds ;  
+
+run;
