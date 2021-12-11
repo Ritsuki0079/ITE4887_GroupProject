@@ -1,5 +1,6 @@
 /*ITP4887 Assignment
 Group member: Au Cheuk Sam(200196425), Ho Tsz Hin(200272205)*/
+/*Github:https://github.com/Ritsuki0079/ITE4887_GroupProject.git*/
 
 PROC SQL;
 	create table price as
