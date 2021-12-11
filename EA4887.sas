@@ -1,11 +1,10 @@
 /*ITP4887 Assignment
-Group member: Au Cheuk Sam, Ho Tsz Hin  */
+Group member: Au Cheuk Sam(200196425), Ho Tsz Hin(200272205)*/
 
 PROC SQL;
 	create table price as
 	select DISTINCT FlatType, avg(price) as avgprice from DATA.EA4887
 	Group By FlatType;
-
 run;
 
 /*Q1 Generate 5 to 10 records*/
@@ -18,11 +17,9 @@ run;
 Proc sgplot data=DATA.EA4887;
 	title "Q2:Property with the most number of the bathroom on average";
 	vbar FlatType / response= TotalBaths stat=mean categoryorder=respasc datalabel;
+	footnote "Based on the bar chart, detached house has the is the property with the most number of the bathroom on average .";
 run;
 title;
-
-/* The bar chart shows the number of the bathroom in different property on average. Detached house has the is the property 
-with the most number of the bathroom on average based on the bar chart. */
 
 /*Q3 The contribution of house type in the record and the common type of property in the UK*/
 PROC template;
@@ -32,6 +29,7 @@ define statgraph piechart;
 			layout region;
 				piechart category=FlatType / 
 				datalabelcontent=(category percent);
+				footnote "Based on the pie chart, flat is the most common type of property in UK.";
 			endlayout;
 	endgraph;
 end;
@@ -40,69 +38,42 @@ run;
 proc sgrender data=DATA.EA4887 template=piechart;
 run;
 
-/* Based on the pie chart, flat is the most common type of property in UK. */
-
-/* PROC sgpie data=DATA.EA4887; */
-/* 	title "Contribution of house type in the record"; */
-/* 		pie FlatType ; */
-/* run; */
-
 /*Q4 The value distribution of the number of Reception between the semi-detached house and terraced house*/
-PROC SQL;
-create table Q4 as 
-	select FlatType, count(Distinct TotalReceptions) as ReceptionsNum
+proc SQL;
+create table Q4a as 
+	select FlatType, TotalReceptions
 	from DATA.EA4887
-	where FlatType = "semi-detached house" or FlatType = "terraced house"
-	Group by FlatType;
-run;
+	where FlatType = "semi-detached house" or FlatType = "terraced house";
+	run;
 
-PROC sgpie data=Q4;
-	title "Q4:Value distribution of the number of Reception between the semi-detached house and terraced house";
-		pie FlatType / response=ReceptionsNum;
-run;
-title;
-
-/* Based on the pie chart from Q4, the value distribution of the number of Reception between the semi-detached house and terraced house
-is the same. */
+proc sgplot data=Q4a;
+ vbox TotalReceptions / category=FlatType;
+ footnote1 "The value distribution of the number of Reception between the semi-detached house and terraced house are identical."; 
+ footnote2 "But terraced house has a lower median and a higher outlier than semi-detached house. ";
+ title "Q4:Value distribution of the number of Reception between the semi-detached house and terraced house";
+ run;
 
 /*Q5 The property that contains the second most turnover*/
-
-/* PROC SQL; */
-/* select Distinct FlatType,sum(price) as Flatpricesum from DATA.EA4887 */
-/* Group by FlatType; */
-/*  */
-/* run; */
-
 Proc sgplot data=DATA.EA4887;
 	title "Q5:Property that contains the second most turnover";
 	vbar FlatType / response= price categoryorder=respasc datalabel;
+	footnote "According to the bar chart from Q5, the property that contains the second most turnover is terraced house.";
 run;
 
-/* According to the bar chart from Q5, the property that contains the second most turnover is terraced house. */
-
-/*Q6 Relationship between the number of bedrooms, the number of bathrooms and the 
-average price of a different property*/
+/*Q6 Relationship between the number of bedrooms, the number of bathrooms and the average price of a different property*/
 proc sgplot data=DATA.EA4887; 
 title "Q6:Relationship between the number of bedrooms and the number of bathrooms";
 
- scatter X=TotalBaths Y=TotalBeds ;  
+	reg X=TotalBaths Y=TotalBeds  ;
 
+	footnote1 "Number of bedrooms and the number of bathrooms have a positive relationship.";
+	footnote2 "It is concluded that the number of bedrooms increases as the number of bathrooms increase, and vice versa. ";
 run;
-
-/*  */
 
 proc sgplot data=price; 
 title "Q6:Relationship between the average price of different property";
 
- scatter X=FlatType Y=avgprice;  
+	scatter X=FlatType Y=avgprice;  
 
+	footnote "There is no relationship between the average price and property.";
 run;
-
-/* Based on the scatter diagram above, there is no relationship between the average price and property.  */
-
-proc sgscatter data=DATA.EA4887;
-  title "Scatterplot Matrix for Iris Data";
-  matrix TotalBaths TotalBeds price
-          / group=FlatType;
-run;
-title;
